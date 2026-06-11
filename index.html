@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Movie Blog Git System</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body{font-family:Arial;background:#0b1220;color:white;margin:0}
+header{text-align:center;padding:20px;background:#111827}
+.container{max-width:900px;margin:auto;padding:20px}
+.card{background:#1e293b;padding:15px;margin:10px 0;border-radius:10px}
+a{color:#60a5fa}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>🎬 GitHub Full Movie Blog</h1>
+</header>
+
+<div class="container" id="posts"></div>
+
+<script>
+fetch("posts.json")
+.then(res=>res.json())
+.then(data=>{
+let box=document.getElementById("posts");
+
+data.forEach(p=>{
+box.innerHTML+=`
+<div class="card">
+<h3>${p.title}</h3>
+<a href="${p.link}">Read Article</a>
+</div>`;
+});
+});
+</script>
+
+</body>
+</html>
