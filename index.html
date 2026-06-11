@@ -1,14 +1,196 @@
 <!DOCTYPE html>
-<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>FreeToolsHub</title><link rel="stylesheet" href="style.css"></head>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FreeToolsHub</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#0b1020;
+color:white;
+}
+
+.hero{
+padding:80px 20px;
+text-align:center;
+background:linear-gradient(135deg,#111827,#312e81);
+}
+
+.hero h1{
+font-size:50px;
+margin-bottom:10px;
+}
+
+.hero p{
+opacity:.8;
+}
+
+.container{
+max-width:1200px;
+margin:auto;
+padding:30px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:20px;
+}
+
+.card{
+background:#1f2937;
+padding:20px;
+border-radius:15px;
+}
+
+.card h3{
+margin-bottom:15px;
+}
+
+input{
+width:100%;
+padding:12px;
+margin-top:10px;
+border:none;
+border-radius:8px;
+}
+
+button{
+width:100%;
+padding:12px;
+margin-top:10px;
+border:none;
+border-radius:8px;
+background:#4f46e5;
+color:white;
+cursor:pointer;
+}
+
+.result{
+margin-top:12px;
+font-weight:bold;
+}
+</style>
+</head>
 <body>
-<header><h1>FreeToolsHub</h1><p>Free Online Tools</p></header>
-<main>
-<div class="card">Age Calculator</div>
-<div class="card">BMI Calculator</div>
-<div class="card">Percentage Calculator</div>
-<div class="card">Password Generator</div>
-<div class="card">Username Generator</div>
-</main>
-<script src="app.js"></script>
-</body></html>
+
+<section class="hero">
+<h1>FreeToolsHub</h1>
+<p>Free Online Tools - Fast, Simple & Free</p>
+</section>
+
+<div class="container">
+
+<div class="grid">
+
+<div class="card">
+<h3>Age Calculator</h3>
+<input type="date" id="dob">
+<button onclick="calcAge()">Calculate Age</button>
+<div class="result" id="ageResult"></div>
+</div>
+
+<div class="card">
+<h3>BMI Calculator</h3>
+<input type="number" id="weight" placeholder="Weight (kg)">
+<input type="number" id="height" placeholder="Height (cm)">
+<button onclick="calcBMI()">Calculate BMI</button>
+<div class="result" id="bmiResult"></div>
+</div>
+
+<div class="card">
+<h3>Password Generator</h3>
+<button onclick="genPass()">Generate Password</button>
+<div class="result" id="passResult"></div>
+</div>
+
+<div class="card">
+<h3>Word Counter</h3>
+<input type="text" id="wordInput" placeholder="Enter text">
+<button onclick="countWords()">Count Words</button>
+<div class="result" id="wordResult"></div>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function calcAge(){
+let dob=document.getElementById("dob").value;
+
+if(!dob){
+document.getElementById("ageResult").innerHTML="Select date";
+return;
+}
+
+let birth=new Date(dob);
+let today=new Date();
+
+let age=today.getFullYear()-birth.getFullYear();
+
+let m=today.getMonth()-birth.getMonth();
+
+if(m<0 || (m===0 && today.getDate()<birth.getDate())){
+age--;
+}
+
+document.getElementById("ageResult").innerHTML="Age: "+age+" years";
+}
+
+function calcBMI(){
+
+let w=parseFloat(document.getElementById("weight").value);
+let h=parseFloat(document.getElementById("height").value)/100;
+
+if(!w || !h){
+document.getElementById("bmiResult").innerHTML="Enter values";
+return;
+}
+
+let bmi=(w/(h*h)).toFixed(1);
+
+document.getElementById("bmiResult").innerHTML="BMI: "+bmi;
+}
+
+function genPass(){
+
+let chars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%";
+
+let pass="";
+
+for(let i=0;i<12;i++){
+
+pass+=chars.charAt(
+Math.floor(Math.random()*chars.length)
+);
+
+}
+
+document.getElementById("passResult").innerHTML=pass;
+
+}
+
+function countWords(){
+
+let txt=document.getElementById("wordInput").value.trim();
+
+let count=txt ? txt.split(/\s+/).length : 0;
+
+document.getElementById("wordResult").innerHTML="Words: "+count;
+
+}
+
+</script>
+
+</body>
+</html>
