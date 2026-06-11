@@ -1,40 +1,245 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Movie Blog Git System</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TikTokBioPro - Free TikTok Bio Generator</title>
+
+<meta name="description" content="Generate cool, funny, aesthetic and professional TikTok bios instantly with TikTokBioPro.">
+<meta name="keywords" content="TikTok Bio Generator, Free TikTok Bio Generator, TikTok Bio Ideas, Funny TikTok Bios, Aesthetic TikTok Bios">
 
 <style>
-body{font-family:Arial;background:#0b1220;color:white;margin:0}
-header{text-align:center;padding:20px;background:#111827}
-.container{max-width:900px;margin:auto;padding:20px}
-.card{background:#1e293b;padding:15px;margin:10px 0;border-radius:10px}
-a{color:#60a5fa}
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#111827;
+color:#fff;
+line-height:1.7;
+}
+
+.container{
+max-width:900px;
+margin:auto;
+padding:20px;
+}
+
+header{
+text-align:center;
+padding:40px 20px;
+}
+
+h1{
+font-size:40px;
+margin-bottom:10px;
+}
+
+.subtitle{
+color:#cbd5e1;
+}
+
+.card{
+background:#1f2937;
+padding:20px;
+border-radius:12px;
+margin-top:20px;
+}
+
+select,
+button,
+textarea{
+width:100%;
+padding:14px;
+margin-top:12px;
+border:none;
+border-radius:8px;
+font-size:16px;
+}
+
+button{
+background:#2563eb;
+color:white;
+cursor:pointer;
+font-weight:bold;
+}
+
+button:hover{
+opacity:.9;
+}
+
+textarea{
+height:140px;
+resize:none;
+}
+
+h2{
+margin-top:30px;
+margin-bottom:10px;
+}
+
+.bio-list{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:10px;
+margin-top:15px;
+}
+
+.bio-item{
+background:#374151;
+padding:12px;
+border-radius:8px;
+}
+
+footer{
+text-align:center;
+padding:30px;
+color:#9ca3af;
+}
 </style>
 </head>
 
 <body>
 
 <header>
-<h1>🎬 GitHub Full Movie Blog</h1>
+<h1>TikTokBioPro</h1>
+<p class="subtitle">
+Generate Amazing TikTok Bios Instantly
+</p>
 </header>
 
-<div class="container" id="posts"></div>
+<div class="container">
+
+<div class="card">
+
+<select id="category">
+<option value="cool">Cool Bios</option>
+<option value="funny">Funny Bios</option>
+<option value="aesthetic">Aesthetic Bios</option>
+<option value="professional">Professional Bios</option>
+<option value="attitude">Attitude Bios</option>
+</select>
+
+<button onclick="generateBio()">
+Generate TikTok Bio
+</button>
+
+<textarea id="result" readonly placeholder="Your bio will appear here..."></textarea>
+
+<button onclick="copyBio()">
+Copy Bio
+</button>
+
+</div>
+
+<h2>Popular TikTok Bios</h2>
+
+<div class="bio-list">
+<div class="bio-item">Living life one trend at a time 😎</div>
+<div class="bio-item">Dream big. Create bigger 🚀</div>
+<div class="bio-item">Lost in the stars ✨</div>
+<div class="bio-item">Professional overthinker 😂</div>
+<div class="bio-item">Building my future one video at a time</div>
+<div class="bio-item">Attitude louder than words 🔥</div>
+</div>
+
+<h2>Free TikTok Bio Generator</h2>
+
+<p>
+TikTokBioPro helps creators generate cool, funny, aesthetic,
+professional, and attitude TikTok bios instantly.
+Whether you're a content creator, gamer, influencer, artist,
+or entrepreneur, our free TikTok Bio Generator can help
+you create a profile bio that stands out.
+</p>
+
+<h2>Frequently Asked Questions</h2>
+
+<p><strong>Is TikTokBioPro free?</strong><br>
+Yes, it is completely free.
+</p>
+
+<p><strong>Can I copy bios?</strong><br>
+Yes, use the copy button to instantly copy your generated bio.
+</p>
+
+<p><strong>Does it work on mobile?</strong><br>
+Yes, TikTokBioPro is fully mobile friendly.
+</p>
+
+<footer>
+© 2026 TikTokBioPro - Free TikTok Bio Generator
+</footer>
+
+</div>
 
 <script>
-fetch("posts.json")
-.then(res=>res.json())
-.then(data=>{
-let box=document.getElementById("posts");
+const bios = {
 
-data.forEach(p=>{
-box.innerHTML+=`
-<div class="card">
-<h3>${p.title}</h3>
-<a href="${p.link}">Read Article</a>
-</div>`;
-});
-});
+cool:[
+"Living life one trend at a time 😎",
+"Creator | Dreamer | Trendsetter 🚀",
+"Making memories through videos ✨",
+"Future icon loading..."
+],
+
+funny:[
+"Professional scroll expert 😂",
+"Powered by snacks and WiFi 🍕",
+"I make bad decisions look good 🤣",
+"Currently avoiding responsibilities"
+],
+
+aesthetic:[
+"Lost in the stars ✨",
+"Moon child 🌙",
+"Creating beauty in chaos 🤍",
+"Soft vibes only"
+],
+
+professional:[
+"Digital Creator & Entrepreneur",
+"Building my future one video at a time",
+"Content Creator | Influencer",
+"Helping people through content"
+],
+
+attitude:[
+"Legends never follow trends 🔥",
+"My vibe, my rules 😎",
+"Born to stand out 💯",
+"Attitude speaks louder than words"
+]
+
+};
+
+function generateBio(){
+
+const category =
+document.getElementById("category").value;
+
+const list = bios[category];
+
+const bio =
+list[Math.floor(Math.random()*list.length)];
+
+document.getElementById("result").value = bio;
+
+}
+
+function copyBio(){
+
+const text =
+document.getElementById("result").value;
+
+navigator.clipboard.writeText(text);
+
+alert("Bio Copied Successfully!");
+
+}
 </script>
 
 </body>
